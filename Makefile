@@ -1,7 +1,7 @@
-.PHONY: all clean
 TARGETNAME=proxy
 GOOS=linux
 GOARCH=amd64
+IMG ?= localhost:32000/proxy:latest
 
 all: format test build clean
 
@@ -17,3 +17,9 @@ build:
 
 clean:
 	go clean -i
+
+docker-build:
+	docker build -f $(shell pwd)/docker/Dockerfile -t ${IMG} .
+
+docker-push:
+	docker push ${IMG}
